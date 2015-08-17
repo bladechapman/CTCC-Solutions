@@ -6,7 +6,7 @@ How would you solve this problem if a temporary buffer is not allowed?
 
 
 import unittest
-
+from tools import DoublyLinkedList
 
 """
 Naive solution:
@@ -46,82 +46,16 @@ def revised_solution(list):
         iterator = iterator.next
 
 
-class LinkedList():
-    def __init__(self, **kwargs):
-        self.head = kwargs['head'] if 'head' in kwargs else None
-
-    def addNode(self, node):
-        if self.head == None:
-            self.head = node
-            return self.head
-        else:
-            temp = self.head
-            while temp.getNext() != None:
-                temp = temp.getNext()
-            temp.setNext(node)
-            node.setPrev(temp)
-
-            return self.head
-    def deleteNode(self, node):
-        if (node == self.head):
-            self.head = node.next
-
-        prev = node.prev
-        next = node.next
-        if prev: prev.next = next
-        if next: next.prev = prev
-    def stringify(self):
-        temp = self.head
-        ret = ''
-        while temp != None:
-            if temp == self.head:
-                ret += str(temp.getValue())
-            else:
-                ret += ' -> ' + str(temp.getValue())
-            temp = temp.getNext()
-        return ret
-
-    @staticmethod
-    def generateExample(doubleNodes):
-        list = LinkedList()
-        node_to_remove = None
-        for i in range(0, 10):
-            node_1 = Node(value=i)
-            node_2 = Node(value=i)
-            list.addNode(node_1)
-            if doubleNodes: list.addNode(node_2)
-        return list
-
-
-class Node():
-    def __init__(self, **kwargs):
-        self.next = kwargs['next'] if 'next' in kwargs else None
-        self.prev = kwargs['prev'] if 'prev' in kwargs else None
-        self.value = kwargs['value'] if 'value' in kwargs else 0
-
-    def setNext(self, next):
-        self.next = next
-    def getNext(self):
-        return self.next
-    def setPrev(self, prev):
-        self.prev = prev
-    def getPrev(self):
-        return self.prev
-
-    def getValue(self):
-        return self.value
-
-
 class TestSolution(unittest.TestCase):
     def test_naive(self):
-        test_list = LinkedList.generateExample(True)
-        solution_list = LinkedList.generateExample(False)
+        test_list = DoublyLinkedList.generateExample(True)
+        solution_list = DoublyLinkedList.generateExample(False)
         naive_solution(test_list)
         self.assertEqual(test_list.stringify(), solution_list.stringify())
 
     def test_revised(self):
-        test_list = LinkedList.generateExample(True)
-        solution_list = LinkedList.generateExample(False)
+        test_list = DoublyLinkedList.generateExample(True)
+        solution_list = DoublyLinkedList.generateExample(False)
         revised_solution(test_list)
         self.assertEqual(test_list.stringify(), solution_list.stringify())
 
