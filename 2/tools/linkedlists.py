@@ -1,6 +1,52 @@
 from . import Node
 
 """
+Defines a singly linked list using the Node class
+"""
+class SinglyLinkedList():
+    def __init__(self, **kwargs):
+        self.head = kwargs['head'] if 'head' in kwargs else None
+    def addNode(self, node):
+        if self.head == None:
+            self.head = node
+            return self.head
+        else:
+            temp = self.head
+            while temp.getNext() != None:
+                temp = temp.getNext()
+            temp.setNext(node)
+    def deleteNode(self, node):
+        if self.head == node:
+            self.head = node.getNext()
+            return self.head
+        else:
+            temp = self.head
+            while temp.getNext() != node:
+                temp = temp.getNext()
+            prev = temp
+            next = node.getNext()
+            prev.setNext(next)
+    def stringify(self):
+        buffer = ''
+        temp = self.head
+        while temp != None:
+            if temp == self.head:
+                buffer += str(temp.getValue())
+            else:
+                buffer += ' -> ' + str(temp.getValue())
+            temp = temp.getNext()
+        return buffer
+
+    @staticmethod
+    def generateExample():
+        list = SinglyLinkedList()
+        for i in range(0, 10):
+            node = Node(value=i)
+            list.addNode(node)
+        return list
+
+
+"""
 Defines a doubly linked list using the Node class
 """
 class DoublyLinkedList():
@@ -34,12 +80,12 @@ class DoublyLinkedList():
             if temp == self.head:
                 ret += str(temp.getValue())
             else:
-                ret += ' -> ' + str(temp.getValue())
+                ret += ' <-> ' + str(temp.getValue())
             temp = temp.getNext()
         return ret
 
     @staticmethod
-    def generateExample(doubleNodes):
+    def generateExample(doubleNodes=False):
         list = DoublyLinkedList()
         node_to_remove = None
         for i in range(0, 10):
