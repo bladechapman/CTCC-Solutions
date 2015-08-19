@@ -25,7 +25,7 @@ def naive_solution(list, k):
 def naive_solution_recursive(node, k):
     if node == None:
         return (1, None)
-    d, n = naive_solution_recursive(node.next, k)
+    d, n = naive_solution_recursive(node.getNext(), k)
     if n:
         return (d + 1, n)
     elif d == k:

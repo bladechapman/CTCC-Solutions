@@ -15,6 +15,12 @@ class Node():
         self.prev = prev
     def getPrev(self):
         return self.prev
-
+    def setValue(self, value):
+        self.value = value
     def getValue(self):
         return self.value
+    def stringify(self):
+        if self.value:
+            return '[' + str(self.value) + ']'
+        else:
+            return '[N]'
